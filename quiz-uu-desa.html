@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz UU No. 6 Tahun 2014 Tentang Desa</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg-primary: #050914;
+    --bg-secondary: #0a1628;
+    --bg-card: rgba(10,22,50,0.85);
+    --bg-glass: rgba(255,255,255,0.04);
+    --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
+    --accent-gold: #f59e0b;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --text-primary: #f0f4ff;
+    --text-secondary: #8ba3c7;
+    --text-muted: #4a6080;
+    --border: rgba(59,130,246,0.2);
+    --border-glow: rgba(59,130,246,0.5);
+    --shadow-blue: 0 0 40px rgba(59,130,246,0.15);
+    --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  .light {
+    --bg-primary: #f0f4ff;
+    --bg-secondary: #e4ebf8;
+    --bg-card: rgba(255,255,255,0.9);
+    --bg-glass: rgba(59,130,246,0.06);
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --border: rgba(59,130,246,0.25);
+    --border-glow: rgba(59,130,246,0.4);
+    --shadow-blue: 0 0 40px rgba(59,130,246,0.1);
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: all 0.3s;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 20%, rgba(59,130,246,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6,182,212,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .screen { display:none; position:relative; z-index:1; }
+  .screen.active { display:flex; flex-direction:column; min-height:100vh; }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-actions { display:flex; gap:10px; align-items:center; }
+
+  .btn-icon {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  .btn-icon:hover { border-color: var(--accent-blue); background: rgba(59,130,246,0.15); }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+    color: white;
+    box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(59,130,246,0.5); }
+
+  .btn-secondary {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  .btn-secondary:hover { border-color: var(--accent-blue); background: rgba(59,130,246,0.1); }
+
+  .btn-danger {
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #ef4444;
+  }
+  .btn-danger:hover { background: rgba(239,68,68,0.25); }
+
+  /* ===== LANDING SCREEN ===== */
+  #landingScreen {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .landing-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: var(--shadow-card), var(--shadow-blue);
+    animation: fadeUp 0.6s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+
+  .landing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent-blue);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .landing-title {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .landing-title span {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .landing-subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .stat-item {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-blue);
+  }
+
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    transition: all 0.2s;
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+
+  .mode-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+
+  .mode-card {
+    background: var(--bg-glass);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .mode-card:hover, .mode-card.selected {
+    border-color: var(--accent-blue);
+    background: rgba(59,130,246,0.1);
+  }
+  .mode-card.selected { box-shadow: 0 0 0 1px var(--accent-blue); }
+  .mode-icon { font-size: 24px; margin-bottom: 8px; }
+  .mode-name { font-size: 14px; font-weight: 600; }
+  .mode-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ===== QUIZ SCREEN ===== */
+  #quizScreen { flex-direction: column; }
+
+  .quiz-body {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  /* Progress Bar */
+  .progress-bar-wrap {
+    background: var(--bg-secondary);
+    height: 4px;
+    position: sticky;
+    top: 70px;
+    z-index: 99;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+    transition: width 0.4s ease;
+    box-shadow: 0 0 8px var(--accent-blue);
+  }
+
+  /* Timer */
+  .timer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 24px;
+    background: var(--bg-glass);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .timer-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .timer-badge.urgent { color: var(--accent-red); animation: pulse 1s infinite; }
+  .timer-badge.warning { color: var(--accent-gold); }
+  .timer-badge.ok { color: var(--accent-green); }
+
+  @keyframes pulse { 0%,100%{ opacity:1 } 50%{ opacity:0.5 } }
+
+  /* Navigation Panel */
+  .nav-panel {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    height: fit-content;
+    position: sticky;
+    top: 120px;
+    transition: all 0.3s;
+  }
+
+  .nav-panel.hidden { display:none; }
+
+  .nav-panel-header {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-legend {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+
+  .q-btn {
+    aspect-ratio: 1;
+    border: 1.5px solid var(--border);
+    background: var(--bg-glass);
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .q-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+  .q-btn.answered { background: rgba(59,130,246,0.2); border-color: var(--accent-blue); color: var(--accent-blue); }
+  .q-btn.current { background: var(--accent-blue); border-color: var(--accent-blue); color: white; }
+  .q-btn.bookmarked { border-color: var(--accent-gold); }
+  .q-btn.answered.bookmarked { background: rgba(245,158,11,0.15); border-color: var(--accent-gold); color: var(--accent-gold); }
+
+  /* Question Card */
+  .question-main { flex: 1; min-width: 0; }
+
+  .question-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity:0; transform: translateX(20px); }
+    to { opacity:1; transform: translateX(0); }
+  }
+
+  .question-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .question-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .question-actions { display:flex; gap:8px; }
+
+  .bookmark-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .bookmark-btn.active { color: var(--accent-gold); border-color: var(--accent-gold); background: rgba(245,158,11,0.1); }
+
+  .question-text {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .options-list { display:flex; flex-direction:column; gap:12px; }
+
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--bg-glass);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: all 0.2s;
+    width: 100%;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--accent-blue);
+    background: rgba(59,130,246,0.08);
+    transform: translateX(3px);
+  }
+
+  .option-btn.selected {
+    border-color: var(--accent-blue);
+    background: rgba(59,130,246,0.15);
+  }
+
+  .option-btn.correct {
+    border-color: var(--accent-green) !important;
+    background: rgba(16,185,129,0.12) !important;
+    color: var(--accent-green);
+  }
+
+  .option-btn.incorrect {
+    border-color: var(--accent-red) !important;
+    background: rgba(239,68,68,0.1) !important;
+    color: var(--accent-red);
+  }
+
+  .option-letter {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    display: flex; align-items:center; justify-content:center;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+
+  .option-btn.selected .option-letter { background: var(--accent-blue); border-color: var(--accent-blue); color: white; }
+  .option-btn.correct .option-letter { background: var(--accent-green); border-color: var(--accent-green); color: white; }
+  .option-btn.incorrect .option-letter { background: var(--accent-red); border-color: var(--accent-red); color: white; }
+
+  /* Explanation */
+  .explanation-box {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    animation: fadeUp 0.3s ease;
+  }
+
+  .explanation-box strong { color: var(--accent-cyan); }
+
+  /* Quiz Nav */
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  /* ===== RESULT SCREEN ===== */
+  #resultScreen { align-items: center; justify-content: flex-start; padding: 40px 20px; }
+
+  .result-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .result-hero {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-card);
+    animation: fadeUp 0.5s ease;
+  }
+
+  .score-ring {
+    width: 160px; height: 160px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+
+  .score-ring svg { width:100%; height:100%; transform: rotate(-90deg); }
+
+  .score-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-pct {
+    font-size: 36px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .score-label { font-size: 11px; color: var(--text-muted); }
+
+  .result-grade {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .result-stat {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+  }
+
+  .result-stat-val {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+
+  .result-stat-key { font-size: 12px; color: var(--text-muted); }
+
+  /* Review */
+  .review-section {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .review-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 12px;
+    background: var(--bg-glass);
+    transition: all 0.2s;
+  }
+
+  .review-item.correct-q { border-color: rgba(16,185,129,0.3); }
+  .review-item.wrong-q { border-color: rgba(239,68,68,0.3); }
+
+  .review-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .review-status {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .review-status.correct { background: rgba(16,185,129,0.2); color: var(--accent-green); }
+  .review-status.wrong { background: rgba(239,68,68,0.15); color: var(--accent-red); }
+
+  /* Leaderboard */
+  .leaderboard-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.7s ease;
+  }
+
+  .lb-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .lb-item.top1 { border-color: var(--accent-gold); background: rgba(245,158,11,0.08); }
+  .lb-item.top2 { border-color: #9ca3af; background: rgba(156,163,175,0.08); }
+  .lb-item.top3 { border-color: #b45309; background: rgba(180,83,9,0.08); }
+  .lb-item.current-user { border-color: var(--accent-blue); background: rgba(59,130,246,0.08); }
+
+  .lb-rank {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    min-width: 36px;
+  }
+
+  .lb-name { flex: 1; font-weight: 600; font-size: 15px; }
+  .lb-score { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent-blue); }
+  .lb-time { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* Warning overlay */
+  .warning-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .warning-overlay.show { display:flex; }
+
+  .warning-box {
+    background: var(--bg-card);
+    border: 2px solid var(--accent-red);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    animation: shake 0.5s ease;
+  }
+
+  @keyframes shake {
+    0%,100%{ transform:translateX(0) }
+    25%{ transform:translateX(-10px) }
+    75%{ transform:translateX(10px) }
+  }
+
+  .warning-icon { font-size: 48px; margin-bottom: 16px; }
+  .warning-title { font-size: 22px; font-weight: 700; color: var(--accent-red); margin-bottom: 8px; }
+  .warning-count { font-size: 13px; color: var(--text-muted); }
+
+  /* Tab icons */
+  .tab-icon { font-size: 14px; }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active {
+    background: var(--accent-blue);
+    color: white;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .footer a { color: var(--accent-blue); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .quiz-body { flex-direction: column; padding: 16px; gap: 16px; }
+    .nav-panel { width: 100%; position: static; }
+    .result-stats { grid-template-columns: repeat(2,1fr); }
+    .landing-card { padding: 28px 20px; }
+    .question-card { padding: 20px; }
+    .stat-grid { grid-template-columns: repeat(3,1fr); }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+
+  .confetti { position:fixed; pointer-events:none; z-index:9998; }
+
+  /* Sound indicator */
+  .sound-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 42px; height: 42px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items:center; justify-content:center;
+    cursor: pointer;
+    z-index: 200;
+    font-size: 18px;
+    transition: all 0.2s;
+  }
+
+  .sound-indicator:hover { border-color: var(--accent-blue); }
+
+  /* import modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.show { display:flex; }
+
+  .modal-box {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 500px;
+    width: 100%;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+
+  .code-area {
+    width: 100%;
+    min-height: 120px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    resize: vertical;
+    outline: none;
+    margin-bottom: 16px;
+  }
+
+  /* Progress text */
+  .progress-text {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- WARNING OVERLAY -->
+<div class="warning-overlay" id="warningOverlay">
+  <div class="warning-box">
+    <div class="warning-icon">⚠️</div>
+    <div class="warning-title">Tab Switching Detected!</div>
+    <p style="color:var(--text-secondary);margin-bottom:16px">Kamu meninggalkan halaman ujian. Ini tercatat sebagai pelanggaran.</p>
+    <div class="warning-count" id="warningCount">Peringatan: 1/3</div>
+    <button class="btn btn-primary" style="margin-top:20px;width:100%" onclick="dismissWarning()">Kembali ke Ujian</button>
+  </div>
+</div>
+
+<!-- SOUND INDICATOR -->
+<div class="sound-indicator" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal-box">
+    <div class="modal-title">📤 Import Soal (JSON)</div>
+    <p style="color:var(--text-secondary);font-size:13px;margin-bottom:12px">Paste JSON array berisi soal-soal baru. Format: [{id,question,options:{A,B,C,D,E},correct,explanation}]</p>
+    <textarea class="code-area" id="importJson" placeholder='[{"id":1,"question":"...","options":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"correct":"A","explanation":"..."}]'></textarea>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="importQuestions()">Import</button>
+      <button class="btn btn-secondary" onclick="closeImportModal()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LANDING SCREEN ===== -->
+<div id="landingScreen" class="screen active">
+  <div style="position:absolute;top:16px;right:16px;display:flex;gap:10px;z-index:10">
+    <button class="btn-icon" onclick="toggleTheme()" title="Toggle Theme">🌙</button>
+    <button class="btn-icon" onclick="openImportModal()" title="Import Questions">📥</button>
+    <button class="btn-icon" onclick="showLeaderboard()" title="Leaderboard">🏆</button>
+  </div>
+
+  <div class="landing-card">
+    <div class="landing-badge">📚 Tryout Hukum</div>
+    <h1 class="landing-title">Quiz <span>UU No. 6 Tahun 2014</span></h1>
+    <p class="landing-subtitle">Tentang Desa — Uji kemampuan kamu dengan 100 soal pilihan ganda yang mencakup seluruh materi Undang-Undang Desa.</p>
+
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-num">100</div>
+        <div class="stat-label">Soal</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">90</div>
+        <div class="stat-label">Menit</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">A–E</div>
+        <div class="stat-label">Pilihan</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">👤 Nama Peserta</label>
+      <input type="text" id="playerName" class="form-input" placeholder="Masukkan nama kamu..." maxlength="50">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">🎯 Mode Quiz</label>
+      <div class="mode-grid">
+        <div class="mode-card selected" id="modeExam" onclick="selectMode('exam')">
+          <div class="mode-icon">📝</div>
+          <div class="mode-name">Exam Mode</div>
+          <div class="mode-desc">Timer 90 menit, nilai di akhir</div>
+        </div>
+        <div class="mode-card" id="modeLearning" onclick="selectMode('learning')">
+          <div class="mode-icon">🎓</div>
+          <div class="mode-name">Learning Mode</div>
+          <div class="mode-desc">Langsung lihat jawaban</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resumeBox" style="display:none;margin-bottom:20px">
+      <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--accent-blue)">💾 Sesi Tersimpan</div>
+          <div style="font-size:12px;color:var(--text-muted)" id="resumeInfo"></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary" style="padding:8px 16px;font-size:13px" onclick="resumeSession()">Lanjutkan</button>
+          <button class="btn btn-secondary" style="padding:8px 16px;font-size:13px" onclick="clearSession()">Hapus</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;padding:16px;font-size:16px" onclick="startQuiz()">
+      Mulai Quiz →
+    </button>
+  </div>
+
+  <div class="footer">
+    Made with ❤️ by <a href="https://github.com/AHzizi" target="_blank">AHzizi</a> &nbsp;|&nbsp; Quiz UU No. 6 Tahun 2014 Tentang Desa
+  </div>
+</div>
+
+<!-- ===== QUIZ SCREEN ===== -->
+<div id="quizScreen" class="screen">
+  <div class="header">
+    <div class="logo">⚖️ Quiz UU Desa</div>
+    <div class="header-actions">
+      <span class="progress-text" id="progressText">0/100</span>
+      <button class="btn-icon" id="navToggleBtn" onclick="toggleNavPanel()" title="Navigation Panel">☰</button>
+      <button class="btn-icon" onclick="toggleTheme()">🌙</button>
+      <button class="btn btn-danger" style="padding:8px 14px;font-size:13px" onclick="confirmSubmit()">Submit</button>
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <div class="timer-bar" id="timerBar" style="display:none">
+    <div class="timer-badge ok" id="timerDisplay">⏱ 90:00</div>
+    <div style="font-size:12px;color:var(--text-muted)" id="playerNameDisplay"></div>
+  </div>
+
+  <div class="quiz-body">
+    <!-- Nav Panel -->
+    <div class="nav-panel" id="navPanel">
+      <div class="nav-panel-header">
+        Navigasi Soal
+        <span id="navStats" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-blue)">0/100</span>
+      </div>
+      <div class="nav-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent-blue)"></div>Dijawab</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--border);border:1px solid var(--border)"></div>Belum</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent-gold)"></div>Bookmark</div>
+      </div>
+      <div class="q-grid" id="navGrid"></div>
+    </div>
+
+    <!-- Question -->
+    <div class="question-main">
+      <div class="question-card" id="questionCard">
+        <div class="question-meta">
+          <span class="question-num" id="questionNum">Soal 1 dari 100</span>
+          <div class="question-actions">
+            <button class="bookmark-btn" id="bookmarkBtn" onclick="toggleBookmark()" title="Bookmark">🔖</button>
+          </div>
+        </div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options-list" id="optionsList"></div>
+        <div id="explanationBox" style="display:none" class="explanation-box"></div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn btn-secondary" onclick="prevQuestion()">← Sebelumnya</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-secondary" onclick="prevQuestion()">‹</button>
+          <button class="btn btn-secondary" onclick="nextQuestion()">›</button>
+        </div>
+        <button class="btn btn-primary" onclick="nextQuestion()">Selanjutnya →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Made with ❤️ by <a href="https://github.com/AHzizi" target="_blank">AHzizi</a>
+  </div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div id="resultScreen" class="screen">
+  <div class="header">
+    <div class="logo">⚖️ Hasil Quiz</div>
+    <div class="header-actions">
+      <button class="btn-icon" onclick="toggleTheme()">🌙</button>
+      <button class="btn btn-secondary" style="font-size:13px;padding:8px 14px" onclick="downloadResult()">⬇ Export</button>
+      <button class="btn btn-primary" style="font-size:13px;padding:8px 14px" onclick="restartQuiz()">🔄 Ulangi</button>
+    </div>
+  </div>
+
+  <div class="result-container" style="padding:24px 20px">
+    <!-- Hero -->
+    <div class="result-hero">
+      <div class="score-ring">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="8"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad)" stroke-width="8"
+            stroke-linecap="round" stroke-dasharray="327" id="scoreCircle" stroke-dashoffset="327"/>
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#3b82f6"/>
+              <stop offset="100%" style="stop-color:#06b6d4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="score-ring-text">
+          <div class="score-pct" id="scorePct">0%</div>
+          <div class="score-label">Skor</div>
+        </div>
+      </div>
+      <div class="result-grade" id="resultGrade">—</div>
+      <p style="color:var(--text-secondary);font-size:14px" id="resultMsg"></p>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-val" id="statCorrect" style="color:var(--accent-green)">0</div>
+          <div class="result-stat-key">✅ Benar</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-val" id="statWrong" style="color:var(--accent-red)">0</div>
+          <div class="result-stat-key">❌ Salah</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-val" id="statSkipped" style="color:var(--accent-gold)">0</div>
+          <div class="result-stat-key">⏭ Dilewati</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-val" id="statTime" style="color:var(--accent-cyan)">0:00</div>
+          <div class="result-stat-key">⏱ Waktu</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchResultTab('review')">📋 Review Soal</button>
+      <button class="tab-btn" onclick="switchResultTab('leaderboard')">🏆 Leaderboard</button>
+    </div>
+
+    <!-- Review -->
+    <div id="reviewTab">
+      <div class="review-section">
+        <div class="section-title">📋 Review Semua Soal</div>
+        <div id="reviewList"></div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div id="leaderboardTab" style="display:none">
+      <div class="leaderboard-card">
+        <div class="section-title">🏆 Papan Peringkat</div>
+        <div style="display:flex;gap:12px;margin-bottom:16px">
+          <button class="btn btn-secondary" style="font-size:12px;padding:8px 14px" onclick="sortLB('score')">📊 By Score</button>
+          <button class="btn btn-secondary" style="font-size:12px;padding:8px 14px" onclick="sortLB('time')">⚡ By Speed</button>
+          <button class="btn btn-danger" style="font-size:12px;padding:8px 14px;margin-left:auto" onclick="clearLeaderboard()">🗑 Reset</button>
+        </div>
+        <div id="leaderboardList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Made with ❤️ by <a href="https://github.com/AHzizi" target="_blank">AHzizi</a> &nbsp;|&nbsp; Quiz UU No. 6 Tahun 2014 Tentang Desa
+  </div>
+</div>
+
+<script>
+// ============================================================
+// QUESTIONS DATA — 100 questions from UU No. 6 Tahun 2014
+// ============================================================
+const QUESTIONS_BANK = [
+  {id:1,question:"Menurut Pasal 1 UU No. 6 Tahun 2014, Desa adalah kesatuan masyarakat hukum yang memiliki batas wilayah yang berwenang untuk mengatur dan mengurus urusan pemerintahan berdasarkan...",options:{A:"Peraturan Bupati/Walikota",B:"Prakarsa masyarakat, hak asal usul, dan/atau hak tradisional",C:"Peraturan Presiden",D:"Keputusan Gubernur",E:"Peraturan Menteri Dalam Negeri"},correct:"B",explanation:"Pasal 1 angka 1 UU Desa menyatakan Desa berwenang berdasarkan prakarsa masyarakat, hak asal usul, dan/atau hak tradisional yang diakui dan dihormati dalam sistem pemerintahan NKRI."},
+  {id:2,question:"Apa yang dimaksud dengan Badan Usaha Milik Desa (BUM Desa) berdasarkan UU No. 6 Tahun 2014?",options:{A:"Badan usaha milik pemerintah kabupaten yang beroperasi di desa",B:"Badan usaha yang seluruh atau sebagian besar modalnya dimiliki oleh Desa melalui penyertaan langsung",C:"Koperasi yang didirikan oleh warga desa secara mandiri",D:"Perusahaan swasta yang bermitra dengan pemerintah desa",E:"Badan usaha yang didirikan atas perintah Gubernur"},correct:"B",explanation:"Pasal 1 angka 6: BUM Desa adalah badan usaha yang seluruh atau sebagian besar modalnya dimiliki oleh Desa melalui penyertaan secara langsung yang berasal dari kekayaan Desa yang dipisahkan."},
+  {id:3,question:"Penyelenggaraan Pemerintahan Desa berdasarkan Pasal 2 UU No. 6 Tahun 2014 berlandaskan pada...",options:{A:"Pancasila, UUD 1945, NKRI, dan Bhinneka Tunggal Ika",B:"UUD 1945 dan Peraturan Presiden",C:"Peraturan Daerah Kabupaten/Kota",D:"Musyawarah Desa dan Peraturan Desa",E:"Keputusan Menteri Dalam Negeri"},correct:"A",explanation:"Pasal 2 menyatakan bahwa penyelenggaraan pemerintahan desa, pembangunan, pembinaan kemasyarakatan, dan pemberdayaan masyarakat desa berdasarkan Pancasila, UUD 1945, NKRI, dan Bhinneka Tunggal Ika."},
+  {id:4,question:"Berapa jumlah asas yang disebutkan dalam Pasal 3 UU No. 6 Tahun 2014 tentang pengaturan Desa?",options:{A:"10 asas",B:"11 asas",C:"12 asas",D:"13 asas",E:"15 asas"},correct:"D",explanation:"Pasal 3 menyebutkan 13 asas: rekognisi, subsidiaritas, keberagaman, kebersamaan, kegotongroyongan, kekeluargaan, musyawarah, demokrasi, kemandirian, partisipasi, kesetaraan, pemberdayaan, dan keberlanjutan."},
+  {id:5,question:"Desa berkedudukan di wilayah mana berdasarkan Pasal 5 UU No. 6 Tahun 2014?",options:{A:"Provinsi",B:"Kecamatan",C:"Kabupaten/Kota",D:"Negara",E:"Kelurahan"},correct:"C",explanation:"Pasal 5 UU No. 6 Tahun 2014 secara eksplisit menyatakan bahwa Desa berkedudukan di wilayah Kabupaten/Kota."},
+  {id:6,question:"Menurut Pasal 6, Desa terdiri atas...",options:{A:"Desa dan Kelurahan",B:"Desa dan Dusun",C:"Desa dan Desa Adat",D:"Desa Biasa dan Desa Mandiri",E:"Desa Tertinggal dan Desa Maju"},correct:"C",explanation:"Pasal 6 ayat (1) menyatakan Desa terdiri atas Desa dan Desa Adat."},
+  {id:7,question:"Tindakan penataan Desa sebagaimana diatur dalam Pasal 7 meliputi hal-hal berikut, KECUALI...",options:{A:"Pembentukan",B:"Penghapusan",C:"Penggabungan",D:"Pemekaran Kecamatan",E:"Perubahan status"},correct:"D",explanation:"Pasal 7 ayat (4) menyebutkan penataan meliputi: pembentukan, penghapusan, penggabungan, perubahan status, dan penetapan Desa. Pemekaran kecamatan tidak termasuk."},
+  {id:8,question:"Berapa batas usia Desa induk paling sedikit untuk pembentukan desa baru menurut Pasal 8?",options:{A:"3 tahun",B:"4 tahun",C:"5 tahun",D:"7 tahun",E:"10 tahun"},correct:"C",explanation:"Pasal 8 ayat (3) huruf a menyebutkan batas usia Desa induk paling sedikit 5 (lima) tahun terhitung sejak pembentukan."},
+  {id:9,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Jawa?",options:{A:"3.000 jiwa atau 600 KK",B:"4.000 jiwa atau 800 KK",C:"5.000 jiwa atau 1.000 KK",D:"6.000 jiwa atau 1.200 KK",E:"8.000 jiwa atau 1.600 KK"},correct:"D",explanation:"Pasal 8 ayat (3) huruf b angka 1: wilayah Jawa paling sedikit 6.000 jiwa atau 1.200 kepala keluarga."},
+  {id:10,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Papua dan Papua Barat?",options:{A:"200 jiwa atau 40 KK",B:"300 jiwa atau 60 KK",C:"400 jiwa atau 80 KK",D:"500 jiwa atau 100 KK",E:"1.000 jiwa atau 200 KK"},correct:"D",explanation:"Pasal 8 ayat (3) huruf b angka 9: wilayah Papua dan Papua Barat paling sedikit 500 jiwa atau 100 kepala keluarga."},
+  {id:11,question:"Desa persiapan dapat ditingkatkan statusnya menjadi Desa dalam jangka waktu...",options:{A:"1 sampai 2 tahun",B:"1 sampai 3 tahun",C:"2 sampai 4 tahun",D:"3 sampai 5 tahun",E:"1 sampai 5 tahun"},correct:"B",explanation:"Pasal 8 ayat (7): Desa persiapan dapat ditingkatkan statusnya menjadi Desa dalam jangka waktu 1 (satu) sampai 3 (tiga) tahun."},
+  {id:12,question:"Berdasarkan Pasal 9, Desa dapat dihapus karena...",options:{A:"Jumlah penduduk berkurang",B:"Kebijakan Bupati",C:"Bencana alam dan/atau kepentingan program nasional yang strategis",D:"Kehendak masyarakat desa",E:"Peraturan Gubernur"},correct:"C",explanation:"Pasal 9: Desa dapat dihapus karena bencana alam dan/atau kepentingan program nasional yang strategis."},
+  {id:13,question:"Peraturan Desa menurut Pasal 1 angka 7 ditetapkan oleh siapa dan setelah melalui proses apa?",options:{A:"Bupati setelah konsultasi dengan DPRD",B:"Kepala Desa setelah dibahas dan disepakati bersama BPD",C:"Gubernur setelah evaluasi",D:"Menteri Dalam Negeri",E:"Badan Permusyawaratan Desa secara sepihak"},correct:"B",explanation:"Pasal 1 angka 7: Peraturan Desa adalah peraturan perundang-undangan yang ditetapkan oleh Kepala Desa setelah dibahas dan disepakati bersama Badan Permusyawaratan Desa."},
+  {id:14,question:"Musyawarah Desa diselenggarakan oleh...",options:{A:"Kepala Desa",B:"Pemerintah Kabupaten",C:"Badan Permusyawaratan Desa",D:"Camat",E:"Lembaga Kemasyarakatan Desa"},correct:"C",explanation:"Pasal 1 angka 5: Musyawarah Desa diselenggarakan oleh Badan Permusyawaratan Desa untuk menyepakati hal yang bersifat strategis."},
+  {id:15,question:"Apa tujuan Pembangunan Desa menurut Pasal 1 angka 8?",options:{A:"Meningkatkan pendapatan asli desa",B:"Upaya peningkatan kualitas hidup dan kehidupan untuk sebesar-besarnya kesejahteraan masyarakat Desa",C:"Membangun infrastruktur desa",D:"Meningkatkan PAD kabupaten/kota",E:"Menciptakan lapangan kerja di desa"},correct:"B",explanation:"Pasal 1 angka 8: Pembangunan Desa adalah upaya peningkatan kualitas hidup dan kehidupan untuk sebesar-besarnya kesejahteraan masyarakat Desa."},
+  {id:16,question:"Asas rekognisi dalam pengaturan Desa berarti...",options:{A:"Desa harus mandiri secara finansial",B:"Pengakuan terhadap hak asal usul desa",C:"Desa bebas mengatur dirinya sendiri tanpa batas",D:"Kesetaraan antar desa",E:"Partisipasi warga dalam pengambilan keputusan"},correct:"B",explanation:"Rekognisi sebagai salah satu asas Pasal 3 berarti pengakuan dan penghormatan atas keberadaan Desa beserta hak-hak asal usulnya."},
+  {id:17,question:"Keuangan Desa berdasarkan Pasal 1 angka 10 adalah...",options:{A:"Dana transfer dari pemerintah pusat",B:"Semua hak dan kewajiban Desa yang dapat dinilai dengan uang serta segala sesuatu berupa uang dan barang",C:"Anggaran yang dikelola BUM Desa",D:"Pajak dan retribusi yang dipungut desa",E:"Bantuan keuangan dari kabupaten/kota"},correct:"B",explanation:"Pasal 1 angka 10: Keuangan Desa adalah semua hak dan kewajiban Desa yang dapat dinilai dengan uang serta segala sesuatu berupa uang dan barang yang berhubungan dengan pelaksanaan hak dan kewajiban Desa."},
+  {id:18,question:"Aset Desa menurut Pasal 1 angka 11 adalah barang milik Desa yang berasal dari...",options:{A:"Hibah pemerintah pusat saja",B:"Kekayaan asli Desa, dibeli atas beban APBDesa, atau perolehan hak lainnya yang sah",C:"Sumbangan warga desa",D:"Dana desa yang tidak terpakai",E:"Bantuan luar negeri"},correct:"B",explanation:"Pasal 1 angka 11: Aset Desa adalah barang milik Desa yang berasal dari kekayaan asli Desa, dibeli atau diperoleh atas beban Anggaran Pendapatan dan Belanja Desa atau perolehan hak lainnya yang sah."},
+  {id:19,question:"Kawasan Perdesaan sebagaimana dimaksud Pasal 1 angka 9 adalah kawasan yang mempunyai kegiatan utama berupa...",options:{A:"Perdagangan dan jasa",B:"Pertanian termasuk pengelolaan sumber daya alam",C:"Industri manufaktur",D:"Pariwisata",E:"Pertambangan"},correct:"B",explanation:"Pasal 1 angka 9: Kawasan Perdesaan adalah kawasan yang mempunyai kegiatan utama pertanian, termasuk pengelolaan sumber daya alam dengan susunan fungsi kawasan sebagai tempat permukiman perdesaan."},
+  {id:20,question:"Salah satu tujuan pengaturan Desa menurut Pasal 4 adalah memperkuat masyarakat Desa sebagai...",options:{A:"Objek pembangunan",B:"Sasaran pembangunan",C:"Subjek pembangunan",D:"Pelaksana pembangunan",E:"Penerima manfaat pembangunan"},correct:"C",explanation:"Pasal 4 huruf i: memperkuat masyarakat Desa sebagai subjek pembangunan."},
+  {id:21,question:"Siapa yang dapat memprakarsai pembentukan Desa di kawasan yang bersifat khusus dan strategis bagi kepentingan nasional?",options:{A:"Gubernur",B:"Bupati/Walikota",C:"Pemerintah (Pusat)",D:"DPR",E:"Menteri Dalam Negeri"},correct:"C",explanation:"Pasal 13: Pemerintah dapat memprakarsai pembentukan Desa di kawasan yang bersifat khusus dan strategis bagi kepentingan nasional."},
+  {id:22,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Bali?",options:{A:"4.000 jiwa atau 800 KK",B:"5.000 jiwa atau 1.000 KK",C:"6.000 jiwa atau 1.200 KK",D:"3.000 jiwa atau 600 KK",E:"2.500 jiwa atau 500 KK"},correct:"B",explanation:"Pasal 8 ayat (3) huruf b angka 2: wilayah Bali paling sedikit 5.000 jiwa atau 1.000 kepala keluarga."},
+  {id:23,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Nusa Tenggara Timur, Maluku, dan Maluku Utara?",options:{A:"500 jiwa atau 100 KK",B:"1.000 jiwa atau 200 KK",C:"1.500 jiwa atau 300 KK",D:"2.000 jiwa atau 400 KK",E:"3.000 jiwa atau 600 KK"},correct:"B",explanation:"Pasal 8 ayat (3) huruf b angka 8: wilayah NTT, Maluku, dan Maluku Utara paling sedikit 1.000 jiwa atau 200 kepala keluarga."},
+  {id:24,question:"Dua Desa atau lebih yang berbatasan dapat digabung menjadi Desa baru berdasarkan...",options:{A:"Peraturan Gubernur",B:"Keputusan Bupati",C:"Kesepakatan Desa yang bersangkutan",D:"Keputusan DPRD",E:"Musyawarah Nasional Desa"},correct:"C",explanation:"Pasal 10: Dua Desa atau lebih yang berbatasan dapat digabung menjadi Desa baru berdasarkan kesepakatan Desa yang bersangkutan dengan memperhatikan persyaratan yang ditentukan."},
+  {id:25,question:"Selain memiliki hak asal usul, Desa juga memiliki kewenangan yang disebut dalam UU ini. Apa asas keuangan yang berlaku untuk pengeluaran APBDesa?",options:{A:"Efisiensi dan efektivitas",B:"Akuntabilitas",C:"Transparansi",D:"Semua jawaban di atas benar",E:"Partisipatif"},correct:"D",explanation:"APBDesa dikelola berdasarkan asas transparan, akuntabel, partisipatif, serta dilakukan dengan tertib dan disiplin anggaran."},
+  {id:26,question:"Kepala Desa memegang jabatan selama berapa tahun dalam satu masa jabatan?",options:{A:"4 tahun",B:"5 tahun",C:"6 tahun",D:"7 tahun",E:"8 tahun"},correct:"C",explanation:"Kepala Desa memegang jabatan selama 6 (enam) tahun terhitung sejak tanggal pelantikan."},
+  {id:27,question:"Kepala Desa dapat menjabat paling banyak berapa kali masa jabatan secara berturut-turut atau tidak?",options:{A:"2 kali",B:"3 kali",C:"4 kali",D:"Tidak terbatas",E:"1 kali"},correct:"B",explanation:"Kepala Desa dapat menjabat paling banyak 3 (tiga) kali masa jabatan secara berturut-turut atau tidak berturut-turut."},
+  {id:28,question:"Siapakah yang berwenang memberhentikan Kepala Desa?",options:{A:"Gubernur",B:"Bupati/Walikota",C:"Menteri Dalam Negeri",D:"Badan Permusyawaratan Desa",E:"Camat"},correct:"B",explanation:"Bupati/Walikota berwenang memberhentikan Kepala Desa sesuai ketentuan UU No. 6 Tahun 2014."},
+  {id:29,question:"Badan Permusyawaratan Desa (BPD) berfungsi untuk...",options:{A:"Mengelola keuangan desa",B:"Membahas dan menyepakati Rancangan Peraturan Desa bersama Kepala Desa",C:"Mengawasi penggunaan Dana Desa secara langsung",D:"Melaksanakan pembangunan desa",E:"Memimpin musyawarah adat"},correct:"B",explanation:"BPD berfungsi membahas dan menyepakati Rancangan Peraturan Desa bersama Kepala Desa, menampung dan menyalurkan aspirasi masyarakat, serta melakukan pengawasan kinerja Kepala Desa."},
+  {id:30,question:"Anggota BPD berjumlah paling sedikit dan paling banyak...",options:{A:"3 dan 7 orang",B:"3 dan 9 orang",C:"5 dan 9 orang",D:"5 dan 11 orang",E:"7 dan 11 orang"},correct:"B",explanation:"Jumlah anggota BPD ditetapkan dengan jumlah gasal, paling sedikit 3 orang dan paling banyak 9 orang."},
+  {id:31,question:"Masa keanggotaan BPD (Badan Permusyawaratan Desa) adalah...",options:{A:"4 tahun",B:"5 tahun",C:"6 tahun",D:"3 tahun",E:"7 tahun"},correct:"C",explanation:"Masa keanggotaan BPD selama 6 (enam) tahun terhitung sejak tanggal pengucapan sumpah/janji."},
+  {id:32,question:"Kewenangan Desa berdasarkan hak asal usul meliputi hal-hal berikut, KECUALI...",options:{A:"Sistem organisasi masyarakat adat",B:"Pembinaan kelembagaan masyarakat",C:"Pengelolaan tanah kas desa",D:"Pengangkatan Kepala Desa oleh Gubernur",E:"Perdamaian desa"},correct:"D",explanation:"Pengangkatan Kepala Desa bukan merupakan kewenangan berdasarkan hak asal usul, melainkan melalui pemilihan langsung oleh masyarakat desa."},
+  {id:33,question:"Sumber pendapatan Desa meliputi hal berikut, KECUALI...",options:{A:"Pendapatan asli Desa",B:"Alokasi APBN (Dana Desa)",C:"Bagian dari hasil pajak daerah",D:"Pajak Penghasilan warga desa",E:"Hibah dan sumbangan yang tidak mengikat"},correct:"D",explanation:"Pajak Penghasilan (PPh) adalah sumber penerimaan negara, bukan sumber pendapatan desa. Sumber pendapatan desa meliputi PADes, Dana Desa, bagian pajak/retribusi daerah, ADD, hibah, dan lain-lain."},
+  {id:34,question:"Dana Desa bersumber dari...",options:{A:"APBD Kabupaten/Kota",B:"APBD Provinsi",C:"APBN",D:"Pendapatan Asli Daerah",E:"Dana Dekonsentrasi"},correct:"C",explanation:"Dana Desa adalah dana yang bersumber dari Anggaran Pendapatan dan Belanja Negara (APBN) yang diperuntukkan bagi Desa."},
+  {id:35,question:"Alokasi Dana Desa (ADD) bersumber dari...",options:{A:"APBN melalui Dana Alokasi Umum",B:"APBD Kabupaten/Kota paling sedikit 10% dari Dana Perimbangan yang diterima",C:"APBD Provinsi",D:"Dana Desa dari pemerintah pusat",E:"Pajak Bumi dan Bangunan"},correct:"B",explanation:"ADD bersumber dari APBD Kabupaten/Kota yang bersumber dari Dana Perimbangan yang diterima Kabupaten/Kota dalam APBN paling sedikit 10%."},
+  {id:36,question:"Rencana Pembangunan Jangka Menengah Desa (RPJMDes) ditetapkan untuk jangka waktu...",options:{A:"3 tahun",B:"4 tahun",C:"5 tahun",D:"6 tahun",E:"10 tahun"},correct:"D",explanation:"RPJMDes ditetapkan untuk jangka waktu 6 (enam) tahun sesuai masa jabatan Kepala Desa."},
+  {id:37,question:"Rencana Kerja Pemerintah Desa (RKPDes) disusun untuk...",options:{A:"6 tahun",B:"3 tahun",C:"1 tahun",D:"5 tahun",E:"2 tahun"},correct:"C",explanation:"RKPDes merupakan penjabaran dari RPJMDes untuk jangka waktu 1 (satu) tahun."},
+  {id:38,question:"APBDesa ditetapkan oleh siapa?",options:{A:"Kepala Desa bersama DPRD",B:"Kepala Desa dengan persetujuan BPD",C:"Bupati/Walikota atas usulan Kepala Desa",D:"Gubernur melalui Camat",E:"Musyawarah Desa"},correct:"B",explanation:"APBDesa ditetapkan oleh Kepala Desa bersama BPD (Badan Permusyawaratan Desa) melalui Peraturan Desa."},
+  {id:39,question:"Laporan keterangan penyelenggaraan pemerintahan desa disampaikan kepada...",options:{A:"Gubernur",B:"Bupati/Walikota",C:"Badan Permusyawaratan Desa",D:"Camat",E:"Menteri Dalam Negeri"},correct:"C",explanation:"Kepala Desa menyampaikan laporan keterangan penyelenggaraan pemerintahan desa kepada Badan Permusyawaratan Desa setiap akhir tahun anggaran."},
+  {id:40,question:"Berapa lama masa jabatan anggota BPD dalam satu periode?",options:{A:"4 tahun",B:"5 tahun",C:"6 tahun",D:"3 tahun",E:"Sama dengan masa jabatan Kepala Desa"},correct:"C",explanation:"Masa keanggotaan BPD adalah 6 (enam) tahun dan dapat dipilih kembali paling banyak 3 (tiga) kali secara berturut-turut atau tidak berturut-turut."},
+  {id:41,question:"Lembaga Kemasyarakatan Desa dibentuk untuk...",options:{A:"Menggantikan fungsi BPD",B:"Membantu Kepala Desa dalam pelaksanaan tugas dan fungsi pemerintahan desa",C:"Mewakili desa di tingkat kabupaten",D:"Mengelola dana desa",E:"Mengawasi kinerja aparat desa"},correct:"B",explanation:"Lembaga Kemasyarakatan Desa dibentuk atas prakarsa masyarakat dan Pemerintah Desa untuk membantu Kepala Desa dalam pelaksanaan tugas dan fungsinya."},
+  {id:42,question:"Peraturan Desa berlaku mengikat...",options:{A:"Hanya bagi aparat desa",B:"Seluruh masyarakat desa",C:"Hanya warga asli desa",D:"Warga yang memiliki hak pilih",E:"Lembaga kemasyarakatan desa"},correct:"B",explanation:"Peraturan Desa berlaku mengikat seluruh masyarakat yang berdomisili di wilayah desa tersebut."},
+  {id:43,question:"Evaluasi Rancangan Peraturan Desa tentang APBDesa dilakukan oleh...",options:{A:"Menteri Dalam Negeri",B:"Gubernur",C:"Bupati/Walikota",D:"Camat",E:"BPD"},correct:"C",explanation:"Rancangan Peraturan Desa tentang APBDesa yang telah dibahas dan disepakati bersama BPD disampaikan kepada Bupati/Walikota untuk dievaluasi."},
+  {id:44,question:"Laporan realisasi pelaksanaan APBDesa disampaikan kepada Bupati/Walikota paling lambat...",options:{A:"1 bulan setelah akhir tahun anggaran",B:"3 bulan setelah akhir tahun anggaran",C:"6 bulan setelah akhir tahun anggaran",D:"31 Januari tahun berikutnya untuk semester I dan akhir bulan Juli untuk semester II",E:"31 Desember setiap tahunnya"},correct:"D",explanation:"Laporan realisasi pelaksanaan APBDesa disampaikan kepada Bupati/Walikota setiap semester, yaitu akhir Januari (semester I) dan akhir Juli (semester II)."},
+  {id:45,question:"Dalam sistem pemerintahan NKRI, Desa dan Desa Adat diakui dan dihormati berdasarkan prinsip...",options:{A:"Desentralisasi penuh",B:"Rekognisi dan subsidiaritas",C:"Otonomi daerah",D:"Dekonsentrasi",E:"Sentralisasi pemerintahan"},correct:"B",explanation:"Prinsip rekognisi (pengakuan) dan subsidiaritas (mendahulukan kewenangan lokal) menjadi landasan pengakuan desa dalam sistem pemerintahan NKRI."},
+  {id:46,question:"Desa Adat mempunyai hak untuk...",options:{A:"Menolak program nasional pemerintah",B:"Mengatur dan mengurus hak asal usulnya",C:"Membuat peraturan yang bertentangan dengan hukum nasional",D:"Memisahkan diri dari NKRI",E:"Tidak membayar pajak kepada negara"},correct:"B",explanation:"Desa Adat mempunyai hak untuk mengatur dan mengurus hak asal usulnya, termasuk sistem adat dan lembaga adat yang telah ada sebelumnya."},
+  {id:47,question:"Pemberdayaan Masyarakat Desa sebagaimana Pasal 1 angka 12 bertujuan untuk...",options:{A:"Meningkatkan pendapatan asli desa",B:"Mengembangkan kemandirian dan kesejahteraan masyarakat",C:"Membangun infrastruktur desa",D:"Meningkatkan PAD kabupaten",E:"Memperluas wilayah desa"},correct:"B",explanation:"Pasal 1 angka 12: Pemberdayaan Masyarakat Desa adalah upaya mengembangkan kemandirian dan kesejahteraan masyarakat dengan meningkatkan pengetahuan, sikap, keterampilan, perilaku, kemampuan, dan kesadaran."},
+  {id:48,question:"Penggunaan Dana Desa diprioritaskan untuk...",options:{A:"Pembangunan dan pemberdayaan masyarakat",B:"Belanja pegawai pemerintah desa",C:"Operasional BPD",D:"Pembangunan kantor desa",E:"Kegiatan sosial budaya saja"},correct:"A",explanation:"Dana Desa diprioritaskan untuk membiayai pembangunan dan pemberdayaan masyarakat Desa."},
+  {id:49,question:"Siapakah yang dimaksud dengan 'Menteri' dalam UU No. 6 Tahun 2014 tentang Desa?",options:{A:"Menteri Keuangan",B:"Menteri Hukum dan HAM",C:"Menteri yang menangani Desa",D:"Menteri Perencanaan Pembangunan Nasional",E:"Menteri Koordinator Bidang Pemerintahan"},correct:"C",explanation:"Pasal 1 angka 16: Menteri adalah menteri yang menangani Desa (saat ini Menteri Desa, Pembangunan Daerah Tertinggal, dan Transmigrasi)."},
+  {id:50,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Sulawesi Selatan dan Sulawesi Utara?",options:{A:"2.000 jiwa atau 400 KK",B:"2.500 jiwa atau 500 KK",C:"3.000 jiwa atau 600 KK",D:"4.000 jiwa atau 800 KK",E:"5.000 jiwa atau 1.000 KK"},correct:"C",explanation:"Pasal 8 ayat (3) huruf b angka 4: wilayah Sulawesi Selatan dan Sulawesi Utara paling sedikit 3.000 jiwa atau 600 kepala keluarga."},
+  {id:51,question:"Kepala Desa wajib menyampaikan laporan penyelenggaraan pemerintahan kepada Bupati/Walikota setiap...",options:{A:"3 bulan sekali",B:"6 bulan sekali",C:"1 tahun sekali",D:"Akhir masa jabatan",E:"Setiap bulan"},correct:"C",explanation:"Kepala Desa wajib menyampaikan laporan penyelenggaraan Pemerintahan Desa setiap akhir tahun anggaran kepada Bupati/Walikota."},
+  {id:52,question:"Kewajiban Kepala Desa menurut UU No. 6 Tahun 2014 meliputi hal-hal berikut, KECUALI...",options:{A:"Memegang teguh Pancasila",B:"Meningkatkan kesejahteraan masyarakat desa",C:"Memelihara ketentraman dan ketertiban",D:"Melakukan pengawasan terhadap DPRD",E:"Menaati dan menegakkan peraturan perundang-undangan"},correct:"D",explanation:"Pengawasan terhadap DPRD bukan merupakan kewajiban Kepala Desa. Kepala Desa berkewajiban kepada masyarakat desa, bukan mengawasi DPRD."},
+  {id:53,question:"Larangan bagi Kepala Desa antara lain adalah...",options:{A:"Mengikuti kegiatan sosial kemasyarakatan",B:"Merugikan kepentingan umum",C:"Menyelenggarakan musyawarah desa",D:"Menerima laporan warga",E:"Menyampaikan pidato pada acara desa"},correct:"B",explanation:"Kepala Desa dilarang merugikan kepentingan umum, membuat keputusan yang menguntungkan diri sendiri, anggota keluarga, atau golongan tertentu."},
+  {id:54,question:"Perangkat Desa terdiri atas...",options:{A:"Sekretaris Desa dan BPD",B:"Sekretariat Desa, pelaksana kewilayahan, dan pelaksana teknis",C:"Camat dan Kepala Desa",D:"BPD dan Lembaga Adat",E:"Kepala Urusan dan Kepala Seksi saja"},correct:"B",explanation:"Parangkat Desa terdiri atas Sekretariat Desa, pelaksana kewilayahan, dan pelaksana teknis."},
+  {id:55,question:"Sekretaris Desa diisi dari unsur...",options:{A:"Tentara Nasional Indonesia",B:"Pegawai Negeri Sipil",C:"Anggota BPD",D:"Warga desa setempat",E:"Calon yang ditunjuk Bupati"},correct:"B",explanation:"Sekretaris Desa diisi dari unsur Pegawai Negeri Sipil (PNS) yang memenuhi persyaratan."},
+  {id:56,question:"Badan Permusyawaratan Desa menjalankan fungsi berikut, KECUALI...",options:{A:"Membahas dan menyepakati Rancangan Peraturan Desa",B:"Menampung dan menyalurkan aspirasi masyarakat",C:"Melakukan pengawasan kinerja Kepala Desa",D:"Melaksanakan pembangunan fisik desa",E:"Memberikan pendapat terhadap kebijakan desa"},correct:"D",explanation:"Pelaksanaan pembangunan fisik desa merupakan tugas pemerintah desa, bukan fungsi BPD. BPD berfungsi legislasi, anggaran, dan pengawasan."},
+  {id:57,question:"Berapa lama jangka waktu pengangkatan Penjabat Kepala Desa?",options:{A:"Maksimal 1 tahun",B:"Maksimal 2 tahun",C:"Sampai dilantiknya Kepala Desa yang baru",D:"6 bulan",E:"Sesuai keputusan Bupati/Walikota"},correct:"C",explanation:"Penjabat Kepala Desa diangkat sampai terpilih dan dilantiknya Kepala Desa yang baru hasil pemilihan."},
+  {id:58,question:"Dana Desa dari APBN disalurkan melalui...",options:{A:"Langsung ke rekening desa",B:"APBD Kabupaten/Kota",C:"APBD Provinsi",D:"Bendahara Umum Negara",E:"Rekening BPD"},correct:"B",explanation:"Dana Desa dari APBN disalurkan melalui APBD Kabupaten/Kota dan kemudian diteruskan ke rekening kas Desa."},
+  {id:59,question:"Penetapan batas wilayah Desa dilakukan dalam bentuk...",options:{A:"Keputusan Kepala Desa",B:"Peta Desa yang ditetapkan dalam peraturan Bupati/Walikota",C:"Peraturan Gubernur",D:"Berita acara musyawarah desa",E:"Surat keputusan Menteri"},correct:"B",explanation:"Batas wilayah Desa dinyatakan dalam bentuk peta Desa yang telah ditetapkan dalam peraturan Bupati/Walikota."},
+  {id:60,question:"Musyawarah Desa dilaksanakan untuk membahas hal-hal yang bersifat...",options:{A:"Operasional rutin desa",B:"Strategis",C:"Teknis administratif",D:"Keuangan harian",E:"Personalia perangkat desa"},correct:"B",explanation:"Musyawarah Desa diselenggarakan untuk menyepakati hal yang bersifat strategis bagi kehidupan dan masa depan desa."},
+  {id:61,question:"Dalam pemilihan Kepala Desa, calon yang memperoleh suara terbanyak ditetapkan sebagai...",options:{A:"Penjabat Kepala Desa",B:"Kepala Desa terpilih",C:"Calon definitif yang perlu dikonfirmasi Bupati",D:"Kepala Desa definitif setelah dilantik Gubernur",E:"Kepala Desa yang harus mengikuti seleksi ulang"},correct:"B",explanation:"Calon Kepala Desa yang memperoleh suara terbanyak ditetapkan sebagai Kepala Desa terpilih."},
+  {id:62,question:"Laporan pertanggungjawaban realisasi pelaksanaan APBDesa merupakan bagian dari...",options:{A:"Laporan Penyelenggaraan Pemerintahan Desa",B:"Laporan Keterangan Pertanggungjawaban",C:"Informasi kepada masyarakat desa",D:"Laporan kepada Camat",E:"Laporan akhir masa jabatan"},correct:"A",explanation:"Laporan pertanggungjawaban realisasi pelaksanaan APBDesa merupakan bagian dari Laporan Penyelenggaraan Pemerintahan Desa kepada Bupati/Walikota."},
+  {id:63,question:"Kerjasama Desa dapat dilakukan antara...",options:{A:"Desa dengan desa lain saja",B:"Desa dengan pihak ketiga saja",C:"Desa dengan desa lain dan/atau dengan pihak ketiga",D:"Desa dengan pemerintah pusat saja",E:"Desa dengan BUMN saja"},correct:"C",explanation:"Desa dapat melakukan kerjasama antar-Desa dan kerjasama Desa dengan pihak ketiga sesuai dengan kewenangan Desa."},
+  {id:64,question:"Hasil kerjasama antar-desa dikelola oleh...",options:{A:"Pemerintah Kabupaten/Kota",B:"Badan Kerjasama Desa",C:"BUM Desa bersama",D:"Lembaga Kemasyarakatan Desa",E:"Camat"},correct:"B",explanation:"Hasil kerjasama antar-Desa dapat dibentuk Badan Kerjasama Desa yang merupakan badan hukum perwakilan dari desa-desa yang bersangkutan."},
+  {id:65,question:"Konflik antardesa diselesaikan secara...",options:{A:"Musyawarah mufakat",B:"Pengadilan negeri",C:"Keputusan Gubernur",D:"Mediasi Bupati/Walikota",E:"Arbitrase nasional"},correct:"A",explanation:"Penyelesaian perselisihan antardesa dilakukan secara musyawarah yang difasilitasi oleh Kabupaten/Kota."},
+  {id:66,question:"Sistem Informasi Desa dikembangkan oleh...",options:{A:"Desa itu sendiri",B:"Pemerintah Kabupaten/Kota",C:"Pemerintah Provinsi",D:"Pemerintah Pusat",E:"Kementerian Komunikasi dan Informatika"},correct:"B",explanation:"Pemerintah Daerah Kabupaten/Kota wajib mengembangkan sistem informasi Desa dan pembangunan Kawasan Perdesaan."},
+  {id:67,question:"Pembangunan Kawasan Perdesaan dikoordinasikan oleh...",options:{A:"Kepala Desa",B:"Bupati/Walikota",C:"Gubernur",D:"Menteri",E:"Camat"},correct:"B",explanation:"Pembangunan Kawasan Perdesaan dikoordinasikan oleh Bupati/Walikota untuk menjaga keserasian antara kepentingan Desa dan kawasan."},
+  {id:68,question:"Pendampingan Desa dilaksanakan oleh...",options:{A:"LSM yang ditunjuk",B:"Perguruan tinggi",C:"Pemerintah, pemerintah daerah, dan masyarakat",D:"Konsultan swasta",E:"Tenaga sukarela"},correct:"C",explanation:"Pendampingan Desa dilaksanakan oleh pemerintah, pemerintah daerah provinsi, pemerintah daerah kabupaten/kota, dan masyarakat."},
+  {id:69,question:"Tenaga pendamping profesional yang mendampingi desa disebut...",options:{A:"Konsultan Desa",B:"Fasilitator Desa",C:"Pendamping Lokal Desa dan Pendamping Desa",D:"Penyuluh Desa",E:"Agen Pembangunan Desa"},correct:"C",explanation:"Tenaga pendamping profesional terdiri dari pendamping lokal desa dan pendamping desa yang bertugas di lapangan."},
+  {id:70,question:"Aset Desa yang berupa tanah kas desa, tanah ulayat, pasar desa, dan pasar hewan termasuk dalam...",options:{A:"Keuangan Desa",B:"Kekayaan Desa",C:"Aset Daerah",D:"Barang Milik Negara",E:"Aset BUM Desa"},correct:"B",explanation:"Aset Desa berupa tanah kas desa, tanah ulayat, pasar desa, pasar hewan dan lain-lain merupakan kekayaan Desa yang harus dikelola dan diadministrasikan dengan baik."},
+  {id:71,question:"Pembentukan BUM Desa ditetapkan melalui...",options:{A:"Keputusan Kepala Desa",B:"Peraturan Desa",C:"Peraturan Bupati/Walikota",D:"Peraturan Gubernur",E:"Peraturan Menteri"},correct:"B",explanation:"BUM Desa dibentuk dengan Peraturan Desa sesuai dengan kebutuhan dan potensi Desa."},
+  {id:72,question:"Modal awal BUM Desa bersumber dari...",options:{A:"Pinjaman bank pemerintah",B:"Dana Desa",C:"Hibah Pemerintah Kabupaten",D:"APBDesa",E:"Modal swasta"},correct:"D",explanation:"Modal awal BUM Desa bersumber dari APBDesa (Anggaran Pendapatan dan Belanja Desa)."},
+  {id:73,question:"Desa Adat memiliki susunan asli dan hak untuk mengurus...",options:{A:"Hanya urusan adat istiadat",B:"Urusan pemerintahan dan kepentingan masyarakat berdasarkan prakarsa dan hak asal usul",C:"Urusan yang ditetapkan Gubernur",D:"Hanya urusan pertanian tradisional",E:"Urusan keagamaan semata"},correct:"B",explanation:"Desa Adat memiliki susunan asli berdasarkan hak asal usul dan berwenang mengurus kepentingan masyarakat setempat berdasarkan prakarsa masyarakat, hak asal usul, dan hak tradisional."},
+  {id:74,question:"Pengakuan terhadap Desa Adat dilakukan dengan Peraturan Daerah yang ditetapkan oleh...",options:{A:"Gubernur",B:"Bupati/Walikota",C:"Menteri",D:"Presiden",E:"DPRD"},correct:"B",explanation:"Penetapan Desa Adat dilakukan dengan Peraturan Daerah Kabupaten/Kota."},
+  {id:75,question:"Pemilihan Kepala Desa dalam kesatuan masyarakat hukum adat dilaksanakan berdasarkan...",options:{A:"Pemilihan langsung oleh seluruh warga desa",B:"Hukum adat setempat",C:"Penunjukan oleh sesepuh adat",D:"Keputusan Bupati/Walikota",E:"Pemilihan oleh BPD"},correct:"B",explanation:"Pemilihan Kepala Desa Adat disesuaikan dengan hukum adat dan kebiasaan masyarakat setempat yang masih hidup."},
+  {id:76,question:"Perselisihan dalam masyarakat Desa yang menyangkut adat istiadat diselesaikan secara...",options:{A:"Pengadilan adat",B:"Musyawarah",C:"Mediasi Bupati",D:"Arbitrase",E:"Pengadilan negeri"},correct:"B",explanation:"Perselisihan dalam masyarakat Desa Adat diselesaikan secara musyawarah berdasarkan hukum adat yang berlaku."},
+  {id:77,question:"Hak desa meliputi hal berikut, KECUALI...",options:{A:"Mengatur dan mengurus kepentingan masyarakat",B:"Memilih Kepala Desa",C:"Mengelola keuangan dan aset desa",D:"Memungut pajak daerah",E:"Mendapatkan bagi hasil dari pajak daerah dan retribusi daerah"},correct:"D",explanation:"Desa tidak berwenang memungut pajak daerah. Pajak daerah merupakan kewenangan pemerintah daerah kabupaten/kota."},
+  {id:78,question:"Pengawasan terhadap penyelenggaraan pemerintahan desa dilakukan oleh...",options:{A:"BPD, Bupati/Walikota, dan masyarakat",B:"Gubernur saja",C:"Inspektorat Provinsi",D:"BPKP",E:"KPK"},correct:"A",explanation:"Pengawasan terhadap penyelenggaraan Pemerintahan Desa dilaksanakan oleh BPD, Camat atas nama Bupati/Walikota, dan masyarakat desa."},
+  {id:79,question:"Pembinaan dan pengawasan terhadap Desa dilaksanakan oleh Pemerintah Pusat melalui...",options:{A:"Langsung dari Kementerian",B:"Gubernur sebagai wakil pemerintah pusat",C:"Bupati/Walikota",D:"Camat",E:"Inspektur Provinsi"},correct:"B",explanation:"Pemerintah Pusat melakukan pembinaan dan pengawasan terhadap Desa melalui Gubernur sebagai wakil Pemerintah Pusat di daerah."},
+  {id:80,question:"Pembinaan terhadap Desa oleh Bupati/Walikota meliputi hal berikut, KECUALI...",options:{A:"Memberikan pedoman pelaksanaan tugas",B:"Memberikan bimbingan, supervisi, dan konsultasi",C:"Memberikan penghargaan atas prestasi",D:"Melakukan pemungutan pajak ke desa",E:"Meningkatkan kapasitas aparatur desa"},correct:"D",explanation:"Pemungutan pajak ke desa bukan merupakan bagian dari pembinaan. Bupati/Walikota berkewajiban membina dan mengembangkan kapasitas desa, bukan memungut pajak dari desa."},
+  {id:81,question:"Penghasilan tetap Kepala Desa dan perangkat desa bersumber dari...",options:{A:"Dana Desa",B:"Dana Alokasi Umum",C:"Alokasi Dana Desa (ADD)",D:"Pendapatan Asli Desa",E:"APBD Provinsi"},correct:"C",explanation:"Penghasilan tetap Kepala Desa dan perangkat desa bersumber dari Alokasi Dana Desa (ADD) yang berasal dari APBD Kabupaten/Kota."},
+  {id:82,question:"Tunjangan Kepala Desa dan perangkat desa bersumber dari...",options:{A:"APBDesa",B:"Dana Desa",C:"Alokasi Dana Desa",D:"APBD Kabupaten/Kota",E:"APBD Provinsi"},correct:"A",explanation:"Selain penghasilan tetap dari ADD, tunjangan Kepala Desa dan perangkat desa dapat bersumber dari APBDesa."},
+  {id:83,question:"Ketentuan peralihan dalam UU No. 6 Tahun 2014 menyatakan bahwa Undang-Undang sebelumnya tentang desa...",options:{A:"Langsung dicabut dan tidak berlaku",B:"Berlaku sampai diterbitkannya peraturan pelaksanaan UU ini",C:"Tetap berlaku sepenuhnya",D:"Berlaku berdampingan dengan UU ini",E:"Dikembalikan ke pemerintah daerah"},correct:"B",explanation:"Ketentuan peralihan menyatakan peraturan pelaksanaan Undang-Undang sebelumnya yang terkait dengan Desa masih tetap berlaku sepanjang tidak bertentangan dengan ketentuan UU No. 6 Tahun 2014."},
+  {id:84,question:"Kepala Desa yang masih menjabat pada saat UU ini diundangkan...",options:{A:"Langsung berhenti",B:"Tetap melanjutkan tugasnya sampai habis masa jabatannya",C:"Dipilih ulang dalam 6 bulan",D:"Menjadi penjabat kepala desa",E:"Dilantik ulang oleh Bupati/Walikota"},correct:"B",explanation:"Kepala Desa yang masih menjabat tetap melanjutkan tugasnya sampai habis masa jabatannya sesuai ketentuan peralihan UU No. 6 Tahun 2014."},
+  {id:85,question:"Jenis dusun atau sebutan lain di dalam wilayah desa dibentuk berdasarkan...",options:{A:"Keputusan Bupati",B:"Asal usul, adat istiadat, dan nilai sosial budaya masyarakat Desa",C:"Jumlah penduduk",D:"Peraturan Gubernur",E:"Peraturan Menteri"},correct:"B",explanation:"Pasal 8 ayat (4): Dalam wilayah Desa dibentuk dusun atau yang disebut dengan nama lain yang disesuaikan dengan asal usul, adat istiadat, dan nilai sosial budaya masyarakat Desa."},
+  {id:86,question:"Perubahan status kelurahan menjadi Desa dapat dilakukan berdasarkan...",options:{A:"Prakarsa pemerintah provinsi",B:"Prakarsa masyarakat dan memenuhi persyaratan",C:"Keputusan Gubernur",D:"Peraturan Menteri",E:"Usul Camat kepada Bupati"},correct:"B",explanation:"Pasal 12 ayat (1): Pemerintah Daerah Kabupaten/Kota dapat mengubah status kelurahan menjadi Desa berdasarkan prakarsa masyarakat dan memenuhi persyaratan yang ditentukan."},
+  {id:87,question:"Ketika kelurahan berubah status menjadi Desa, sarana dan prasarana yang ada...",options:{A:"Menjadi milik negara",B:"Menjadi milik Desa dan dikelola oleh Desa yang bersangkutan",C:"Tetap menjadi milik Kabupaten/Kota",D:"Menjadi milik Provinsi",E:"Dilelang oleh Pemerintah Daerah"},correct:"B",explanation:"Pasal 12 ayat (2): Kelurahan yang berubah status menjadi Desa, sarana dan prasarana menjadi milik Desa dan dikelola oleh Desa yang bersangkutan untuk kepentingan masyarakat Desa."},
+  {id:88,question:"Pendanaan perubahan status kelurahan menjadi desa dibebankan pada...",options:{A:"APBN",B:"APBD Provinsi",C:"APBD Kabupaten/Kota",D:"APBDesa",E:"Dana Desa"},correct:"C",explanation:"Pasal 12 ayat (3): Pendanaan perubahan status kelurahan dibebankan pada Anggaran Pendapatan dan Belanja Daerah Kabupaten/Kota."},
+  {id:89,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Sumatera?",options:{A:"3.000 jiwa atau 600 KK",B:"4.000 jiwa atau 800 KK",C:"5.000 jiwa atau 1.000 KK",D:"6.000 jiwa atau 1.200 KK",E:"2.500 jiwa atau 500 KK"},correct:"B",explanation:"Pasal 8 ayat (3) huruf b angka 3: wilayah Sumatera paling sedikit 4.000 jiwa atau 800 kepala keluarga."},
+  {id:90,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Nusa Tenggara Barat?",options:{A:"2.000 jiwa atau 400 KK",B:"2.500 jiwa atau 500 KK",C:"3.000 jiwa atau 600 KK",D:"4.000 jiwa atau 800 KK",E:"1.500 jiwa atau 300 KK"},correct:"B",explanation:"Pasal 8 ayat (3) huruf b angka 5: wilayah Nusa Tenggara Barat paling sedikit 2.500 jiwa atau 500 kepala keluarga."},
+  {id:91,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Kalimantan Timur, Kalimantan Barat, Kalimantan Tengah, dan Kalimantan Utara?",options:{A:"1.000 jiwa atau 200 KK",B:"1.500 jiwa atau 300 KK",C:"2.000 jiwa atau 400 KK",D:"2.500 jiwa atau 500 KK",E:"3.000 jiwa atau 600 KK"},correct:"B",explanation:"Pasal 8 ayat (3) huruf b angka 7: wilayah Kalimantan Timur, Kalimantan Barat, Kalimantan Tengah, dan Kalimantan Utara paling sedikit 1.500 jiwa atau 300 kepala keluarga."},
+  {id:92,question:"Undang-Undang No. 6 Tahun 2014 tentang Desa mencabut dan menyatakan tidak berlaku ketentuan mengenai Desa dalam...",options:{A:"UU No. 22 Tahun 1999",B:"UU No. 32 Tahun 2004 tentang Pemerintahan Daerah",C:"UU No. 25 Tahun 1999",D:"UU No. 12 Tahun 2011",E:"PP No. 72 Tahun 2005"},correct:"B",explanation:"UU No. 6 Tahun 2014 mencabut dan menyatakan tidak berlaku ketentuan mengenai Desa dalam Undang-Undang Nomor 32 Tahun 2004 tentang Pemerintahan Daerah."},
+  {id:93,question:"Pengaturan Desa dalam UU No. 6 Tahun 2014 bertujuan untuk memberikan kejelasan status dan kepastian hukum atas Desa dalam sistem...",options:{A:"Pemerintahan Provinsi",B:"Otonomi Daerah",C:"Ketatanegaraan Republik Indonesia",D:"Pemerintahan Kabupaten/Kota",E:"Desentralisasi"},correct:"C",explanation:"Pasal 4 huruf b: tujuan pengaturan desa adalah memberikan kejelasan status dan kepastian hukum atas Desa dalam sistem ketatanegaraan Republik Indonesia demi mewujudkan keadilan bagi seluruh rakyat Indonesia."},
+  {id:94,question:"Asas subsidiaritas dalam pengaturan Desa berarti...",options:{A:"Bantuan keuangan dari pemerintah pusat",B:"Penetapan kewenangan berskala lokal dan pengambilan keputusan secara lokal",C:"Subsidi pemerintah untuk desa tertinggal",D:"Kerja sama antar desa",E:"Pertanggungjawaban kepala desa kepada masyarakat"},correct:"B",explanation:"Asas subsidiaritas berarti bahwa kewenangan berskala lokal dan pengambilan keputusan dilakukan secara lokal oleh desa, tidak perlu diserahkan ke tingkat pemerintahan yang lebih tinggi."},
+  {id:95,question:"Dalam hal Kepala Desa berhalangan sementara, siapa yang melaksanakan tugas Kepala Desa?",options:{A:"Anggota BPD tertua",B:"Sekretaris Desa",C:"Kepala Dusun yang tertua",D:"Penjabat yang ditunjuk Bupati/Walikota",E:"Wakil Kepala Desa"},correct:"B",explanation:"Dalam hal Kepala Desa berhalangan sementara, Sekretaris Desa melaksanakan tugas dan kewenangan Kepala Desa."},
+  {id:96,question:"UU No. 6 Tahun 2014 tentang Desa mulai berlaku pada tanggal...",options:{A:"1 Januari 2014",B:"15 Januari 2014",C:"28 Januari 2014",D:"17 Agustus 2014",E:"1 April 2014"},correct:"C",explanation:"UU No. 6 Tahun 2014 tentang Desa diundangkan dan mulai berlaku pada tanggal 15 Januari 2014 (tanggal pengesahan) dan diundangkan 15 Januari 2014. Pasal penutup menyatakan berlaku sejak tanggal diundangkan."},
+  {id:97,question:"Ketentuan lebih lanjut mengenai penetapan dan penegasan batas desa diatur dalam...",options:{A:"Peraturan Presiden",B:"Peraturan Menteri",C:"Peraturan Daerah",D:"Peraturan Bupati/Walikota",E:"Peraturan Gubernur"},correct:"B",explanation:"Ketentuan lebih lanjut mengenai penetapan dan penegasan batas Desa diatur dalam Peraturan Menteri."},
+  {id:98,question:"Peraturan pelaksanaan UU No. 6 Tahun 2014 tentang Desa harus ditetapkan paling lambat...",options:{A:"6 bulan",B:"1 tahun",C:"2 tahun",D:"3 tahun",E:"18 bulan"},correct:"C",explanation:"Peraturan pelaksanaan Undang-Undang ini harus ditetapkan paling lama 2 (dua) tahun terhitung sejak Undang-Undang ini diundangkan."},
+  {id:99,question:"Berapa jumlah penduduk minimum untuk pembentukan desa di wilayah Sulawesi Tengah, Sulawesi Barat, Sulawesi Tenggara, Gorontalo, dan Kalimantan Selatan?",options:{A:"1.500 jiwa atau 300 KK",B:"2.000 jiwa atau 400 KK",C:"2.500 jiwa atau 500 KK",D:"3.000 jiwa atau 600 KK",E:"1.000 jiwa atau 200 KK"},correct:"B",explanation:"Pasal 8 ayat (3) huruf b angka 6: wilayah Sulawesi Tengah, Sulawesi Barat, Sulawesi Tenggara, Gorontalo, dan Kalimantan Selatan paling sedikit 2.000 jiwa atau 400 kepala keluarga."},
+  {id:100,question:"Prinsip 'Bhinneka Tunggal Ika' yang menjadi landasan penyelenggaraan pemerintahan desa mengandung makna...",options:{A:"Persatuan Indonesia dalam keragaman",B:"Kemandirian desa",C:"Gotong royong masyarakat desa",D:"Musyawarah untuk mufakat",E:"Kesetaraan antar desa"},correct:"A",explanation:"Bhinneka Tunggal Ika yang berarti 'berbeda-beda tetapi tetap satu' mencerminkan prinsip persatuan Indonesia dalam keberagaman, yang juga menjadi salah satu landasan penyelenggaraan pemerintahan desa berdasarkan Pasal 2."}
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  playerName: '',
+  mode: 'exam',
+  questions: [],
+  answers: {},
+  bookmarks: new Set(),
+  currentIndex: 0,
+  startTime: null,
+  endTime: null,
+  timerInterval: null,
+  timerSeconds: 90 * 60,
+  navVisible: true,
+  soundEnabled: true,
+  tabWarnings: 0,
+  isSubmitted: false,
+  sessionSeed: null
+};
+
+// ============================================================
+// SEED-BASED SHUFFLE
+// ============================================================
+function seededRandom(seed) {
+  let s = seed;
+  return function() {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
+function shuffleArray(arr, rng) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function prepareQuestions(seed) {
+  const rng = seededRandom(seed);
+  const shuffledQs = shuffleArray(QUESTIONS_BANK, rng);
+  return shuffledQs.map(q => {
+    const letters = ['A','B','C','D','E'];
+    const rng2 = seededRandom(seed + q.id * 137);
+    const shuffledLetters = shuffleArray(letters, rng2);
+    const newOptions = {};
+    const letterMap = {};
+    shuffledLetters.forEach((origLetter, newIdx) => {
+      const newLetter = letters[newIdx];
+      newOptions[newLetter] = q.options[origLetter];
+      letterMap[origLetter] = newLetter;
+    });
+    return {
+      ...q,
+      options: newOptions,
+      correct: letterMap[q.correct],
+      _originalOptions: q.options
+    };
+  });
+}
+
+// ============================================================
+// LOCALSTORAGE
+// ============================================================
+function saveSession() {
+  const data = {
+    playerName: state.playerName,
+    mode: state.mode,
+    answers: state.answers,
+    bookmarks: [...state.bookmarks],
+    currentIndex: state.currentIndex,
+    timerSeconds: state.timerSeconds,
+    startTime: state.startTime,
+    sessionSeed: state.sessionSeed
+  };
+  localStorage.setItem('quiz_session', JSON.stringify(data));
+}
+
+function loadSession() {
+  try {
+    const saved = localStorage.getItem('quiz_session');
+    return saved ? JSON.parse(saved) : null;
+  } catch { return null; }
+}
+
+function clearSession() {
+  localStorage.removeItem('quiz_session');
+  document.getElementById('resumeBox').style.display = 'none';
+}
+
+function getLeaderboard() {
+  try {
+    return JSON.parse(localStorage.getItem('quiz_leaderboard') || '[]');
+  } catch { return []; }
+}
+
+function saveToLeaderboard(entry) {
+  const lb = getLeaderboard();
+  lb.push(entry);
+  lb.sort((a,b) => b.score - a.score || a.timeTaken - b.timeTaken);
+  localStorage.setItem('quiz_leaderboard', JSON.stringify(lb.slice(0, 50)));
+}
+
+// ============================================================
+// UI HELPERS
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light');
+  const isLight = document.body.classList.contains('light');
+  document.querySelectorAll('.btn-icon').forEach(b => {
+    if (b.title === 'Toggle Theme') b.textContent = isLight ? '☀️' : '🌙';
+  });
+  localStorage.setItem('quiz_theme', isLight ? 'light' : 'dark');
+}
+
+function toggleSound() {
+  state.soundEnabled = !state.soundEnabled;
+  document.getElementById('soundToggle').textContent = state.soundEnabled ? '🔊' : '🔇';
+}
+
+function playSound(type) {
+  if (!state.soundEnabled || !window.AudioContext) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    if (type === 'select') { osc.frequency.value = 440; gain.gain.value = 0.05; }
+    else if (type === 'correct') { osc.frequency.value = 523; gain.gain.value = 0.07; }
+    else if (type === 'wrong') { osc.frequency.value = 220; gain.gain.value = 0.07; }
+    osc.start();
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    osc.stop(ctx.currentTime + 0.3);
+  } catch(e) {}
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+}
+
+// ============================================================
+// LANDING
+// ============================================================
+function selectMode(mode) {
+  state.mode = mode;
+  document.getElementById('modeExam').classList.toggle('selected', mode === 'exam');
+  document.getElementById('modeLearning').classList.toggle('selected', mode === 'learning');
+}
+
+function checkResumeSessions() {
+  const saved = loadSession();
+  if (saved && saved.playerName) {
+    const answered = Object.keys(saved.answers || {}).length;
+    document.getElementById('resumeBox').style.display = 'block';
+    document.getElementById('resumeInfo').textContent = `${saved.playerName} — ${answered}/100 soal dijawab`;
+  }
+}
+
+function resumeSession() {
+  const saved = loadSession();
+  if (!saved) return;
+  state.playerName = saved.playerName;
+  state.mode = saved.mode;
+  state.answers = saved.answers || {};
+  state.bookmarks = new Set(saved.bookmarks || []);
+  state.currentIndex = saved.currentIndex || 0;
+  state.timerSeconds = saved.timerSeconds || 90*60;
+  state.startTime = saved.startTime || Date.now();
+  state.sessionSeed = saved.sessionSeed || Date.now();
+  state.questions = prepareQuestions(state.sessionSeed);
+  startQuizUI();
+}
+
+function startQuiz() {
+  const name = document.getElementById('playerName').value.trim();
+  if (!name) { document.getElementById('playerName').focus(); document.getElementById('playerName').style.borderColor = 'var(--accent-red)'; return; }
+  state.playerName = name;
+  state.answers = {};
+  state.bookmarks = new Set();
+  state.currentIndex = 0;
+  state.timerSeconds = 90 * 60;
+  state.startTime = Date.now();
+  state.sessionSeed = Date.now();
+  state.questions = prepareQuestions(state.sessionSeed);
+  state.isSubmitted = false;
+  clearSession();
+  startQuizUI();
+}
+
+function startQuizUI() {
+  showScreen('quizScreen');
+  buildNavGrid();
+  renderQuestion();
+  updateProgress();
+
+  if (state.mode === 'exam') {
+    document.getElementById('timerBar').style.display = 'flex';
+    document.getElementById('playerNameDisplay').textContent = `👤 ${state.playerName}`;
+    startTimer();
+  }
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  clearInterval(state.timerInterval);
+  updateTimerDisplay();
+  state.timerInterval = setInterval(() => {
+    state.timerSeconds--;
+    updateTimerDisplay();
+    saveSession();
+    if (state.timerSeconds <= 0) {
+      clearInterval(state.timerInterval);
+      alert('⏱ Waktu habis! Quiz otomatis disubmit.');
+      submitQuiz();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timerDisplay');
+  const t = formatTime(state.timerSeconds);
+  el.textContent = `⏱ ${t}`;
+  el.className = 'timer-badge';
+  if (state.timerSeconds <= 300) el.classList.add('urgent');
+  else if (state.timerSeconds <= 600) el.classList.add('warning');
+  else el.classList.add('ok');
+}
+
+// ============================================================
+// QUIZ RENDER
+// ============================================================
+function buildNavGrid() {
+  const grid = document.getElementById('navGrid');
+  grid.innerHTML = '';
+  state.questions.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-btn';
+    btn.textContent = i + 1;
+    btn.onclick = () => goToQuestion(i);
+    grid.appendChild(btn);
+  });
+  updateNavGrid();
+}
+
+function updateNavGrid() {
+  const btns = document.querySelectorAll('.q-btn');
+  let answered = 0;
+  btns.forEach((btn, i) => {
+    btn.className = 'q-btn';
+    if (state.answers[i] !== undefined) { btn.classList.add('answered'); answered++; }
+    if (i === state.currentIndex) btn.classList.add('current');
+    if (state.bookmarks.has(i)) btn.classList.add('bookmarked');
+  });
+  document.getElementById('navStats').textContent = `${answered}/100`;
+}
+
+function renderQuestion() {
+  const q = state.questions[state.currentIndex];
+  const i = state.currentIndex;
+
+  document.getElementById('questionNum').textContent = `Soal ${i+1} dari ${state.questions.length}`;
+  document.getElementById('questionText').textContent = q.question;
+
+  const bookBtn = document.getElementById('bookmarkBtn');
+  bookBtn.className = 'bookmark-btn' + (state.bookmarks.has(i) ? ' active' : '');
+
+  const optList = document.getElementById('optionsList');
+  optList.innerHTML = '';
+
+  const letters = ['A','B','C','D','E'];
+  const selected = state.answers[i];
+  const isAnswered = selected !== undefined;
+  const isLearning = state.mode === 'learning';
+
+  letters.forEach(letter => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.disabled = isAnswered && isLearning;
+
+    let cls = '';
+    if (selected === letter) {
+      if (isLearning) {
+        cls = letter === q.correct ? 'correct' : 'incorrect';
+      } else {
+        cls = 'selected';
+      }
+    } else if (isLearning && isAnswered && letter === q.correct) {
+      cls = 'correct';
+    }
+    if (cls) btn.classList.add(cls);
+
+    btn.innerHTML = `<span class="option-letter">${letter}</span><span>${q.options[letter]}</span>`;
+    btn.onclick = () => selectAnswer(letter);
+    optList.appendChild(btn);
+  });
+
+  // Explanation in learning mode
+  const expBox = document.getElementById('explanationBox');
+  if (isLearning && isAnswered) {
+    expBox.style.display = 'block';
+    const isCorrect = selected === q.correct;
+    expBox.innerHTML = `<strong>${isCorrect ? '✅ Benar!' : `❌ Salah! Jawaban benar: ${q.correct}`}</strong><br>${q.explanation}`;
+  } else {
+    expBox.style.display = 'none';
+  }
+
+  updateNavGrid();
+  updateProgress();
+
+  // Animate
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none';
+  requestAnimationFrame(() => { card.style.animation = 'slideIn 0.3s ease'; });
+}
+
+function selectAnswer(letter) {
+  const i = state.currentIndex;
+  const q = state.questions[i];
+
+  if (state.mode === 'learning' && state.answers[i] !== undefined) return;
+  if (state.mode === 'exam' && state.answers[i] !== undefined) {
+    state.answers[i] = letter; // allow change in exam mode
+  } else {
+    state.answers[i] = letter;
+  }
+
+  playSound(state.mode === 'learning' ? (letter === q.correct ? 'correct' : 'wrong') : 'select');
+  saveSession();
+  renderQuestion();
+}
+
+function goToQuestion(i) {
+  state.currentIndex = i;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (state.currentIndex < state.questions.length - 1) {
+    state.currentIndex++;
+    renderQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (state.currentIndex > 0) {
+    state.currentIndex--;
+    renderQuestion();
+  }
+}
+
+function toggleNavPanel() {
+  state.navVisible = !state.navVisible;
+  document.getElementById('navPanel').classList.toggle('hidden', !state.navVisible);
+}
+
+function toggleBookmark() {
+  const i = state.currentIndex;
+  if (state.bookmarks.has(i)) state.bookmarks.delete(i);
+  else state.bookmarks.add(i);
+  saveSession();
+  renderQuestion();
+}
+
+function updateProgress() {
+  const answered = Object.keys(state.answers).length;
+  const pct = (answered / state.questions.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${answered}/${state.questions.length}`;
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+function confirmSubmit() {
+  const answered = Object.keys(state.answers).length;
+  const unanswered = state.questions.length - answered;
+  const msg = unanswered > 0
+    ? `Masih ada ${unanswered} soal yang belum dijawab. Yakin ingin submit?`
+    : 'Yakin ingin submit quiz?';
+  if (confirm(msg)) submitQuiz();
+}
+
+function submitQuiz() {
+  clearInterval(state.timerInterval);
+  state.endTime = Date.now();
+  state.isSubmitted = true;
+  localStorage.removeItem('quiz_session');
+  showResults();
+}
+
+// ============================================================
+// RESULTS
+// ============================================================
+function showResults() {
+  showScreen('resultScreen');
+
+  let correct = 0, wrong = 0, skipped = 0;
+  state.questions.forEach((q, i) => {
+    const ans = state.answers[i];
+    if (ans === undefined) skipped++;
+    else if (ans === q.correct) correct++;
+    else wrong++;
+  });
+
+  const total = state.questions.length;
+  const pct = Math.round((correct / total) * 100);
+  const timeTaken = Math.round((state.endTime - state.startTime) / 1000);
+  const timeStr = formatTime(timeTaken);
+
+  // Score ring animation
+  setTimeout(() => {
+    const circle = document.getElementById('scoreCircle');
+    const circumference = 327;
+    const offset = circumference - (pct / 100) * circumference;
+    circle.style.transition = 'stroke-dashoffset 1.5s ease';
+    circle.style.strokeDashoffset = offset;
+  }, 300);
+
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statSkipped').textContent = skipped;
+  document.getElementById('statTime').textContent = timeStr;
+
+  let grade, msg, color;
+  if (pct >= 90) { grade = '🏆 Sangat Baik'; msg = 'Luar biasa! Kamu menguasai UU Desa dengan sangat baik.'; color = '#10b981'; }
+  else if (pct >= 75) { grade = '⭐ Baik'; msg = 'Hasil yang baik! Terus tingkatkan pemahamanmu.'; color = '#3b82f6'; }
+  else if (pct >= 60) { grade = '📚 Cukup'; msg = 'Cukup, tapi masih perlu belajar lebih lagi.'; color = '#f59e0b'; }
+  else { grade = '📖 Perlu Belajar'; msg = 'Jangan menyerah! Pelajari lagi materi UU Desa.'; color = '#ef4444'; }
+
+  document.getElementById('resultGrade').textContent = grade;
+  document.getElementById('resultGrade').style.color = color;
+  document.getElementById('resultMsg').textContent = msg;
+
+  // Build review
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML = '';
+  state.questions.forEach((q, i) => {
+    const ans = state.answers[i];
+    const isCorrect = ans === q.correct;
+    const isSkipped = ans === undefined;
+
+    const item = document.createElement('div');
+    item.className = `review-item ${isSkipped ? '' : isCorrect ? 'correct-q' : 'wrong-q'}`;
+
+    const statusIcon = isSkipped ? '⏭' : isCorrect ? '✅' : '❌';
+    const statusClass = isSkipped ? 'wrong' : isCorrect ? 'correct' : 'wrong';
+
+    item.innerHTML = `
+      <div class="review-header">
+        <div class="review-status ${statusClass}">${statusIcon}</div>
+        <div>
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">Soal ${i+1}</div>
+          <div style="font-size:14px;font-weight:500;line-height:1.5">${q.question}</div>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);padding-left:40px">
+        ${ans ? `<span style="color:${isCorrect ? 'var(--accent-green)' : 'var(--accent-red)'}">Jawaban kamu: ${ans}. ${q.options[ans] || ''}</span><br>` : '<span style="color:var(--accent-gold)">Tidak dijawab</span><br>'}
+        <span style="color:var(--accent-cyan)">✓ Benar: ${q.correct}. ${q.options[q.correct]}</span><br>
+        <span style="color:var(--text-muted);margin-top:6px;display:block">💡 ${q.explanation}</span>
+      </div>
+    `;
+    reviewList.appendChild(item);
+  });
+
+  // Save to leaderboard
+  saveToLeaderboard({
+    name: state.playerName,
+    score: correct,
+    pct,
+    timeTaken,
+    date: new Date().toLocaleDateString('id-ID')
+  });
+
+  renderLeaderboard('score');
+
+  // Confetti for high scores
+  if (pct >= 80) launchConfetti();
+}
+
+function switchResultTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='review')||(i===1&&tab==='leaderboard')));
+  document.getElementById('reviewTab').style.display = tab === 'review' ? 'block' : 'none';
+  document.getElementById('leaderboardTab').style.display = tab === 'leaderboard' ? 'block' : 'none';
+}
+
+function renderLeaderboard(sortBy) {
+  let lb = getLeaderboard();
+  if (sortBy === 'time') lb = [...lb].sort((a,b) => a.timeTaken - b.timeTaken);
+  else lb = [...lb].sort((a,b) => b.score - a.score || a.timeTaken - b.timeTaken);
+
+  const list = document.getElementById('leaderboardList');
+  list.innerHTML = '';
+
+  if (lb.length === 0) {
+    list.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px">Belum ada data leaderboard</p>';
+    return;
+  }
+
+  const medals = ['🥇','🥈','🥉'];
+  lb.forEach((entry, i) => {
+    const isCurrentUser = entry.name === state.playerName;
+    const topClass = i < 3 ? `top${i+1}` : '';
+    const item = document.createElement('div');
+    item.className = `lb-item ${topClass} ${isCurrentUser ? 'current-user' : ''}`;
+    item.innerHTML = `
+      <div class="lb-rank">${i < 3 ? medals[i] : '#'+(i+1)}</div>
+      <div class="lb-name">${entry.name} ${isCurrentUser ? '(Kamu)' : ''}</div>
+      <div class="lb-score">${entry.score}/100 (${entry.pct}%)</div>
+      <div class="lb-time">${formatTime(entry.timeTaken)}</div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function sortLB(by) { renderLeaderboard(by); }
+
+function clearLeaderboard() {
+  if (confirm('Hapus semua data leaderboard?')) {
+    localStorage.removeItem('quiz_leaderboard');
+    renderLeaderboard('score');
+  }
+}
+
+function showLeaderboard() {
+  // Show leaderboard on landing in a simple alert-style
+  const lb = getLeaderboard();
+  if (lb.length === 0) { alert('Belum ada data leaderboard'); return; }
+  let text = '🏆 LEADERBOARD\n\n';
+  lb.slice(0,10).forEach((e,i) => {
+    text += `${i+1}. ${e.name} — ${e.score}/100 (${e.pct}%) — ${formatTime(e.timeTaken)}\n`;
+  });
+  alert(text);
+}
+
+// ============================================================
+// IMPORT/EXPORT
+// ============================================================
+function openImportModal() { document.getElementById('importModal').classList.add('show'); }
+function closeImportModal() { document.getElementById('importModal').classList.remove('show'); }
+
+function importQuestions() {
+  try {
+    const json = document.getElementById('importJson').value.trim();
+    const imported = JSON.parse(json);
+    if (!Array.isArray(imported) || imported.length === 0) throw new Error('Format tidak valid');
+    // Validate first entry
+    const first = imported[0];
+    if (!first.question || !first.options || !first.correct) throw new Error('Field wajib: question, options, correct');
+    // Add to bank
+    const maxId = Math.max(...QUESTIONS_BANK.map(q=>q.id));
+    imported.forEach((q,i) => { if (!q.id) q.id = maxId + i + 1; });
+    QUESTIONS_BANK.push(...imported);
+    alert(`✅ Berhasil import ${imported.length} soal baru! Total soal: ${QUESTIONS_BANK.length}`);
+    closeImportModal();
+  } catch(e) {
+    alert('❌ Error: ' + e.message);
+  }
+}
+
+function downloadResult() {
+  const correct = Object.keys(state.answers).filter(i => state.answers[i] === state.questions[i].correct).length;
+  const pct = Math.round(correct / state.questions.length * 100);
+  const timeTaken = state.endTime ? Math.round((state.endTime - state.startTime)/1000) : 0;
+
+  let text = `HASIL QUIZ UU No. 6 Tahun 2014 Tentang Desa\n`;
+  text += `${'='.repeat(50)}\n\n`;
+  text += `Nama    : ${state.playerName}\n`;
+  text += `Tanggal : ${new Date().toLocaleDateString('id-ID')}\n`;
+  text += `Skor    : ${correct}/100 (${pct}%)\n`;
+  text += `Waktu   : ${formatTime(timeTaken)}\n\n`;
+  text += `DETAIL JAWABAN:\n${'='.repeat(50)}\n\n`;
+  state.questions.forEach((q, i) => {
+    const ans = state.answers[i];
+    const isCorrect = ans === q.correct;
+    text += `${i+1}. ${q.question}\n`;
+    text += `   Jawaban: ${ans || 'Tidak dijawab'} | Benar: ${q.correct} | ${isCorrect ? '✓' : '✗'}\n\n`;
+  });
+
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `Hasil_Quiz_UU_Desa_${state.playerName}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function restartQuiz() {
+  clearInterval(state.timerInterval);
+  showScreen('landingScreen');
+}
+
+// ============================================================
+// ANTI-CHEAT
+// ============================================================
+let warningDismissed = true;
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && !state.isSubmitted && document.getElementById('quizScreen').classList.contains('active') && state.mode === 'exam') {
+    state.tabWarnings++;
+    document.getElementById('warningCount').textContent = `Peringatan: ${state.tabWarnings}/3`;
+    document.getElementById('warningOverlay').classList.add('show');
+    if (state.tabWarnings >= 3) {
+      clearInterval(state.timerInterval);
+      state.timerSeconds = Math.max(0, state.timerSeconds - 300);
+      updateTimerDisplay();
+    }
+  }
+});
+
+function dismissWarning() {
+  document.getElementById('warningOverlay').classList.remove('show');
+}
+
+// ============================================================
+// CONFETTI
+// ============================================================
+function launchConfetti() {
+  const colors = ['#3b82f6','#06b6d4','#10b981','#f59e0b','#8b5cf6'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.style.cssText = `position:fixed;top:-10px;left:${Math.random()*100}%;width:8px;height:8px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};z-index:9997;pointer-events:none;animation:fall ${1+Math.random()*2}s ease forwards`;
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 3000);
+    }, i * 50);
+  }
+}
+
+// Add confetti CSS
+const style = document.createElement('style');
+style.textContent = `@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}`;
+document.head.appendChild(style);
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('load', () => {
+  const theme = localStorage.getItem('quiz_theme');
+  if (theme === 'light') { document.body.classList.add('light'); }
+  checkResumeSessions();
+});
+</script>
+</body>
+</html>
